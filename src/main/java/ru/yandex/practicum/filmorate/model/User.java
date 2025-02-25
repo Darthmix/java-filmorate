@@ -18,10 +18,10 @@ public class User {
     @Past(message = "Дата рождения не может быть в будущем")
     private LocalDate birthday;
 
-    public void setName(String name){
+    public void setName(String name) {
         if (name == null || name.isBlank()) {
-            this.name = this.login ;
-        }else{
+            this.name = this.login;
+        } else {
             this.name = name;
         }
     }
