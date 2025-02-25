@@ -23,7 +23,7 @@ class FilmTest {
     private Validator validator;
 
     @BeforeEach
-    void initialization(){
+    void initialization() {
         film = new Film();
         film.setId(1);
         film.setName("TestFilmName");
@@ -39,7 +39,7 @@ class FilmTest {
     }
 
     @Test
-    void checkDescriptionFilm(){
+    void checkDescriptionFilm() {
         film.setDescription("TROLOLO".repeat(2000));
         Set<ConstraintViolation<Film>> violation = validator.validate(film);
         assertFalse(violation.isEmpty(), "Валидация прошла при превышении лимита символов");

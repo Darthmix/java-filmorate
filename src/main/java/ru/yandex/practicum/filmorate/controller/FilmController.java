@@ -46,11 +46,7 @@ public class FilmController {
     }
 
     private int getNextId() {
-        int newId = films.keySet()
-                         .stream()
-                         .mapToInt(id -> id)
-                         .max()
-                         .orElse(0);
+        int newId = films.keySet().stream().mapToInt(id -> id).max().orElse(0);
         return ++newId;
     }
 
