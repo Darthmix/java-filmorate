@@ -16,7 +16,7 @@ public class Film {
     private Integer id;
     @NotBlank(message = "Название фильма не может быть пустым")
     private String name;
-    @Size(max = 30, message = "максимальная длина описания — 30 символов")
+    @Size(max = 200, message = "максимальная длина описания — 200 символов")
     private String description;
     @ValidReleaseDate // кастомный валидатор для проверки даты
     private LocalDate releaseDate;
