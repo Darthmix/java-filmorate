@@ -39,7 +39,7 @@ public class User {
                "id=" + id +
                ", email='" + email + '\'' +
                ", login='" + login + '\'' +
-               ", name='" + ( ( name == null || name.isBlank() ) ? login : name  ) + '\'' +
+               ", name='" + ((name == null || name.isBlank()) ? login : name) + '\'' +
                ", birthday=" + birthday +
                '}';
     }
