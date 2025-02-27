@@ -46,7 +46,10 @@ public class UserController {
     }
 
     private int getNextId() {
-        int newId = users.keySet().stream().mapToInt(id -> id).max().orElse(0);
+        int newId = users.keySet().stream()
+            .mapToInt(id -> id)
+            .max()
+            .orElse(0);
         return ++newId;
     }
 }
