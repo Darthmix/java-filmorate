@@ -18,6 +18,13 @@ public class User {
     @Past(message = "Дата рождения не может быть в будущем")
     private LocalDate birthday;
 
+    public void setLogin(String login) {
+        this.login = login;
+        if (this.name == null || this.name.isBlank()) {
+            this.name = this.login;
+        }
+    }
+
     public void setName(String name) {
         if (name == null || name.isBlank()) {
             this.name = login;
@@ -25,22 +32,4 @@ public class User {
             this.name = name;
         }
     }
-
-//    public void setLogin(String login) {
-//        this.login = login;
-//        if (this.name == null || this.name.isBlank()) {
-//            this.name = this.login;
-//        }
-//    }
-
-//    @Override
-//    public String toString() {
-//        return "User{" +
-//               "id=" + id +
-//               ", email='" + email + '\'' +
-//               ", login='" + login + '\'' +
-//               ", name='" + ((name == null || name.isBlank()) ? login : name) + '\'' +
-//               ", birthday=" + birthday +
-//               '}';
-//    }
 }
