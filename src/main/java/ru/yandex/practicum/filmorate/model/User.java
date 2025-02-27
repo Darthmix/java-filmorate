@@ -20,7 +20,7 @@ public class User {
 
     public void setName(String name) {
         if (name == null || name.isBlank()) {
-            this.name = this.login;
+            this.name = login;
         } else {
             this.name = name;
         }
@@ -33,14 +33,14 @@ public class User {
 //        }
 //    }
 
-    @Override
-    public String toString() {
-        return "User{" +
-               "id=" + id +
-               ", email='" + email + '\'' +
-               ", login='" + login + '\'' +
-               ", name='" + ((name == null || name.isBlank()) ? login : name) + '\'' +
-               ", birthday=" + birthday +
-               '}';
-    }
+//    @Override
+//    public String toString() {
+//        return "User{" +
+//               "id=" + id +
+//               ", email='" + email + '\'' +
+//               ", login='" + login + '\'' +
+//               ", name='" + ((name == null || name.isBlank()) ? login : name) + '\'' +
+//               ", birthday=" + birthday +
+//               '}';
+//    }
 }
