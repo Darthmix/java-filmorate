@@ -18,10 +18,10 @@ public class ErrorHandler {
         return new ErrorResponse("Id не найден: ", exception.getMessage());
     }
 
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler
-    public ErrorResponse handleException(final Exception exception) {
-        log.info("Ошибка сервера. {}", exception.getMessage());
-        return new ErrorResponse("Ошибка сервера.", exception.getMessage());
+    public ErrorResponse handleValidationException(final Exception exception) {
+        log.info("Ошибка валидации данных. {}", exception.getMessage());
+        return new ErrorResponse("Ошибка валидации данных.", exception.getMessage());
     }
 }
