@@ -1,9 +1,12 @@
 package ru.yandex.practicum.filmorate.model;
 
+import jakarta.validation.ValidationException;
 import jakarta.validation.constraints.*;
 import lombok.Data;
 
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 @Data
 public class User {
@@ -17,6 +20,7 @@ public class User {
     private String name;
     @Past(message = "Дата рождения не может быть в будущем")
     private LocalDate birthday;
+    private final Set<Integer> friends = new HashSet<>();
 
     public void setLogin(String login) {
         this.login = login;
@@ -31,5 +35,16 @@ public class User {
         } else {
             this.name = name;
         }
+    }
+
+    public void addFriend(Integer id) {
+        if (id.equals(this.id)) {
+            throw new ValidationException("Пользователь не может быть другом самому себе");
+        }
+        friends.add(id);
+    }
+
+    public void removeFriend(Integer friendId) {
+        friends.remove(friendId);
     }
 }
