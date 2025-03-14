@@ -14,14 +14,14 @@ public class ErrorHandler {
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler
     public ErrorResponse handleIncorrectParameter(final NotFoundException exception) {
-        log.info("Id не найден: {}",  exception.getMessage());
+        log.info("Id не найден: {}", exception.getMessage());
         return new ErrorResponse("Id не найден: ", exception.getMessage());
     }
 
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler
     public ErrorResponse handleException(final Exception exception) {
-        log.info("Ошибка сервера. {}", exception.getMessage() );
+        log.info("Ошибка сервера. {}", exception.getMessage());
         return new ErrorResponse("Ошибка сервера.", exception.getMessage());
     }
 }
