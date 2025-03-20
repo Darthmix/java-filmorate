@@ -25,20 +25,23 @@ public class FilmService {
         return filmStorage.create(film);
     }
 
-    public Film updateFilm(Film newFilm) {
+    public Film updateFilm(Film newFilm) throws  NotFoundException {
         return filmStorage.update(newFilm);
     }
 
-    public Film addLikeToFilm(Integer filmId, Integer userId) {
+    private void checkUserById(Integer userId) throws  NotFoundException{
         if (userStorage.getUserById(userId) == null)
             throw new NotFoundException("Пользователь с указанным id не найден: " + userId);
+    }
+
+    public Film addLikeToFilm(Integer filmId, Integer userId) throws NotFoundException {
+        checkUserById(userId);
         filmStorage.getFilmById(filmId).addLike(userId);
         return filmStorage.getFilmById(filmId);
     }
 
-    public Film removeLikeFromFilm(Integer filmId, Integer userId) {
-        if (userStorage.getUserById(userId) == null)
-            throw new NotFoundException("Пользователь с указанным id не найден: " + userId);
+    public Film removeLikeFromFilm(Integer filmId, Integer userId) throws NotFoundException {
+        checkUserById(userId);
         filmStorage.getFilmById(filmId).removeLike(userId);
         return filmStorage.getFilmById(filmId);
     }
