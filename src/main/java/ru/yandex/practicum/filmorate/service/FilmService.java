@@ -25,11 +25,11 @@ public class FilmService {
         return filmStorage.create(film);
     }
 
-    public Film updateFilm(Film newFilm) throws  NotFoundException {
+    public Film updateFilm(Film newFilm) throws NotFoundException {
         return filmStorage.update(newFilm);
     }
 
-    private void checkUserById(Integer userId) throws  NotFoundException{
+    private void checkUserById(Integer userId) throws NotFoundException {
         if (userStorage.getUserById(userId) == null)
             throw new NotFoundException("Пользователь с указанным id не найден: " + userId);
     }
