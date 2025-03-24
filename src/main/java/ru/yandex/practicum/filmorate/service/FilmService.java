@@ -26,7 +26,6 @@ public class FilmService {
     }
 
     public Film updateFilm(Film newFilm) throws NotFoundException {
-//        return filmStorage.update(newFilm);
         Film oldFilm = filmStorage.getFilmById(newFilm.getId());
         oldFilm.setName(newFilm.getName());
         oldFilm.setDescription(newFilm.getDescription());

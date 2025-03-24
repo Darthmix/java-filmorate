@@ -23,7 +23,12 @@ public class UserService {
     }
 
     public User updateUser(User newUser) {
-        return userStorage.update(newUser);
+        User oldUser = userStorage.getUserById(newUser.getId());
+        oldUser.setLogin(newUser.getLogin());
+        oldUser.setEmail(newUser.getEmail());
+        oldUser.setBirthday(newUser.getBirthday());
+        oldUser.setName(newUser.getName());
+        return  userStorage.update(oldUser);
     }
 
     public User addFriend(Integer id, Integer friendId) {
