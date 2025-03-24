@@ -26,7 +26,13 @@ public class FilmService {
     }
 
     public Film updateFilm(Film newFilm) throws NotFoundException {
-        return filmStorage.update(newFilm);
+//        return filmStorage.update(newFilm);
+        Film oldFilm = filmStorage.getFilmById(newFilm.getId());
+        oldFilm.setName(newFilm.getName());
+        oldFilm.setDescription(newFilm.getDescription());
+        oldFilm.setDuration(newFilm.getDuration());
+        oldFilm.setReleaseDate(newFilm.getReleaseDate());
+        return filmStorage.update(oldFilm);
     }
 
     private void checkUserById(Integer userId) throws NotFoundException {
