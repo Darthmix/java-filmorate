@@ -31,6 +31,12 @@ public class UserController {
         return userService.createUser(user);
     }
 
+    @GetMapping("/{id}")
+    public UserDto getById(
+            @Positive(message = "Id пользователя должен быть положительным числом") @PathVariable Integer id) {
+        return userService.getUserById(id);
+    }
+
     @PutMapping
     public UserDto update(@Valid @RequestBody UpdateUserRequest newUser) {
         return userService.updateUser(newUser);
