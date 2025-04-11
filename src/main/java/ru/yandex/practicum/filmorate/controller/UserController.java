@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.*;
 import ru.yandex.practicum.filmorate.dto.User.NewUserRequest;
 import ru.yandex.practicum.filmorate.dto.User.UpdateUserRequest;
 import ru.yandex.practicum.filmorate.dto.User.UserDto;
-import ru.yandex.practicum.filmorate.model.User;
 import ru.yandex.practicum.filmorate.service.UserService;
 
 import java.util.Collection;
