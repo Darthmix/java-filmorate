@@ -1,4 +1,4 @@
-package ru.yandex.practicum.filmorate.dto;
+package ru.yandex.practicum.filmorate.dto.Film;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -27,6 +27,8 @@ public class NewFilmRequest {
 
     @Positive(message = "Продолжительность фильма должна быть положительным числом")
     private int duration;
+
     private Set<Genre> genres = new HashSet<>();
+
     private RatingMpa mpa;
 }

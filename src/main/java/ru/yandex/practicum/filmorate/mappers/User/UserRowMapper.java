@@ -1,7 +1,6 @@
-package ru.yandex.practicum.filmorate.mappers;
+package ru.yandex.practicum.filmorate.mappers.User;
 
 import lombok.AllArgsConstructor;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 import ru.yandex.practicum.filmorate.model.User;
@@ -12,7 +11,6 @@ import java.sql.SQLException;
 @Component
 @AllArgsConstructor
 public class UserRowMapper implements RowMapper<User> {
-    private final JdbcTemplate jdbc;
 
     @Override
     public User mapRow(ResultSet resultSet, int rowNum) throws SQLException {

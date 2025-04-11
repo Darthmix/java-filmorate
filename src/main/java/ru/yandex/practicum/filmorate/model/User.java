@@ -10,17 +10,23 @@ import java.util.Set;
 
 @Data
 public class User {
+
     private Integer id;
+
     @NotNull(message = "Email должен быть заполнен")
     @Email(message = "Email должен иметь правильный формат")
     private String email;
+
     @NotBlank(message = "Логин не может быть пустым")
     @Pattern(regexp = ".*\\S.*", message = "Логин не может содержать пробелы")
     private String login;
+
     private String name;
+
     @Past(message = "Дата рождения не может быть в будущем")
     private LocalDate birthday;
-    private final Set<Integer> friends = new HashSet<>();
+
+    private Set<Integer> friends = new HashSet<>();
 
     public void setLogin(String login) {
         this.login = login;
@@ -37,14 +43,4 @@ public class User {
         }
     }
 
-    public void addFriend(Integer id) {
-        if (id.equals(this.id)) {
-            throw new ValidationException("Пользователь не может быть другом самому себе");
-        }
-        friends.add(id);
-    }
-
-    public void removeFriend(Integer friendId) {
-        friends.remove(friendId);
-    }
 }

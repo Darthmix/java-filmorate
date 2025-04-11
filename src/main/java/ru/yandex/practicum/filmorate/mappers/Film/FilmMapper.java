@@ -1,8 +1,12 @@
-package ru.yandex.practicum.filmorate.mappers;
+package ru.yandex.practicum.filmorate.mappers.Film;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
-import ru.yandex.practicum.filmorate.dto.FilmDto;
+import ru.yandex.practicum.filmorate.dto.Film.FilmDto;
+import ru.yandex.practicum.filmorate.dto.Film.NewFilmRequest;
+import ru.yandex.practicum.filmorate.dto.Film.UpdateFilmRequest;
+import ru.yandex.practicum.filmorate.mappers.Genre.GenreMapper;
+import ru.yandex.practicum.filmorate.mappers.RatingMpa.RatingMpaMapper;
 import ru.yandex.practicum.filmorate.model.Film;
 
 import java.util.List;

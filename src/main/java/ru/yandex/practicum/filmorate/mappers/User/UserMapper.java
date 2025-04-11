@@ -1,8 +1,9 @@
-package ru.yandex.practicum.filmorate.mappers;
+package ru.yandex.practicum.filmorate.mappers.User;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import ru.yandex.practicum.filmorate.dto.User.NewUserRequest;
+import ru.yandex.practicum.filmorate.dto.User.UpdateUserRequest;
 import ru.yandex.practicum.filmorate.dto.User.UserDto;
 import ru.yandex.practicum.filmorate.model.User;
 

@@ -1,4 +1,4 @@
-package ru.yandex.practicum.filmorate.dto;
+package ru.yandex.practicum.filmorate.dto.Film;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Positive;
@@ -14,15 +14,22 @@ import java.util.Set;
 
 @Data
 public class UpdateFilmRequest {
+
     private Integer id;
+
     @NotBlank(message = "Название фильма не может быть пустым")
     private String name;
+
     @Size(max = 200, message = "максимальная длина описания — 200 символов")
     private String description;
+
     @ValidReleaseDate
     private LocalDate releaseDate;
+
     @Positive(message = "Продолжительность фильма должна быть положительным числом")
     private int duration;
+
     private Set<Genre> genres = new HashSet<>();
+
     private RatingMpa mpa;
 }

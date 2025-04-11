@@ -16,25 +16,22 @@ import java.util.Set;
 public class Film {
 
     private Integer id;
+
     @NotBlank(message = "Название фильма не может быть пустым")
     private String name;
+
     @Size(max = 200, message = "максимальная длина описания — 200 символов")
     private String description;
+
     @ValidReleaseDate // кастомный валидатор для проверки даты
     private LocalDate releaseDate;
+
     @Positive(message = "Продолжительность фильма должна быть положительной")
     private int duration;
-    private final Set<Integer> likes = new HashSet<>();
 
-    public void addLike(Integer userId) {
-        likes.add(userId);
-    }
+    private Set<Integer> likes = new HashSet<>();
 
-    public void removeLike(Integer userId) {
-        likes.remove(userId);
-    }
+    private Set<Genre> genres = new HashSet<>();
 
-    public Integer getNumberOfLikes() {
-        return likes.size();
-    }
+    private RatingMpa ratingMpa;
 }
