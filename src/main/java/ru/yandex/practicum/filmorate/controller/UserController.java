@@ -5,7 +5,9 @@ import jakarta.validation.constraints.Positive;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
-import ru.yandex.practicum.filmorate.model.User;
+import ru.yandex.practicum.filmorate.dto.User.NewUserRequest;
+import ru.yandex.practicum.filmorate.dto.User.UpdateUserRequest;
+import ru.yandex.practicum.filmorate.dto.User.UserDto;
 import ru.yandex.practicum.filmorate.service.UserService;
 
 import java.util.Collection;
@@ -20,22 +22,28 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping
-    public Collection<User> findAll() {
+    public Collection<UserDto> findAll() {
         return userService.getUsers();
     }
 
     @PostMapping
-    public User create(@Valid @RequestBody User user) {
+    public UserDto create(@Valid @RequestBody NewUserRequest user) {
         return userService.createUser(user);
     }
 
+    @GetMapping("/{id}")
+    public UserDto getById(
+            @Positive(message = "Id пользователя должен быть положительным числом") @PathVariable Integer id) {
+        return userService.getUserById(id);
+    }
+
     @PutMapping
-    public User update(@Valid @RequestBody User newUser) {
+    public UserDto update(@Valid @RequestBody UpdateUserRequest newUser) {
         return userService.updateUser(newUser);
     }
 
     @PutMapping("/{id}/friends/{friendId}")
-    public User addFriend(
+    public UserDto addFriend(
             @Positive(message = "Id пользователя должен быть положительным числом") @PathVariable("id") Integer id,
             @Positive(message = "Id друга должен быть положительным числом") @PathVariable("friendId")
             Integer friendId) {
@@ -43,7 +51,7 @@ public class UserController {
     }
 
     @DeleteMapping("/{id}/friends/{friendId}")
-    public User removeFromFriends(
+    public UserDto removeFromFriends(
             @Positive(message = "Id пользователя должен быть положительным числом") @PathVariable("id") Integer id,
             @Positive(message = "Id друга должен быть положительным числом") @PathVariable("friendId")
             Integer friendId) {
@@ -51,12 +59,12 @@ public class UserController {
     }
 
     @GetMapping("/{id}/friends")
-    public List<User> getFriends(@Positive @PathVariable("id") Integer id) {
+    public List<UserDto> getFriends(@Positive @PathVariable("id") Integer id) {
         return userService.getFriends(id);
     }
 
     @GetMapping("/{id}/friends/common/{otherId}")
-    public List<User> getCommonFriends(
+    public List<UserDto> getCommonFriends(
             @Positive(message = "Id пользователя должен быть положительным числом") @PathVariable("id") Integer id,
             @Positive(message = "Id пользователя должен быть положительным числом") @PathVariable("otherId")
             Integer otherId) {
