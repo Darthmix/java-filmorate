@@ -40,19 +40,19 @@ public class GenreMapper {
         return new Genre(genreDto.getId(), genreDto.getName());
     }
 
-    public static Set<Genre>fromDto(Set<GenreDto> genreDto) {
+    public static Set<Genre> fromDto(Set<GenreDto> genreDto) {
         if (genreDto == null || genreDto.isEmpty()) {
             return Set.of();
         }
         return genreDto.stream()
-                     .map(GenreMapper::fromDto)
-                     .collect(Collectors.toSet());
+                       .map(GenreMapper::fromDto)
+                       .collect(Collectors.toSet());
     }
 
-    public static List<Genre>fromDto(List<GenreDto> genreDto) {
+    public static List<Genre> fromDto(List<GenreDto> genreDto) {
         return genreDto.stream()
-                     .map(GenreMapper::fromDto)
-                     .toList();
+                       .map(GenreMapper::fromDto)
+                       .toList();
     }
 
 }

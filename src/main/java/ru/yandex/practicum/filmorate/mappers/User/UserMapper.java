@@ -35,7 +35,9 @@ public class UserMapper {
     }
 
     public static List<UserDto> toDto(List<User> users) {
-        return users.stream().map(UserMapper::toDto).toList();
+        return users.stream()
+                    .map(UserMapper::toDto)
+                    .toList();
     }
 
     public static User toEntity(User user, UpdateUserRequest request) {
