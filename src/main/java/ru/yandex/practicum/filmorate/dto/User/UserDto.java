@@ -1,6 +1,5 @@
 package ru.yandex.practicum.filmorate.dto.User;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.*;
 import lombok.Data;
 
@@ -10,7 +9,6 @@ import java.util.Set;
 
 @Data
 public class UserDto {
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Integer id;
 
     @NotNull(message = "Email должен быть заполнен")

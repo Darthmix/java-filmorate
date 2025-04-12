@@ -19,3 +19,16 @@ VALUES (1, 2), (1, 3), (2, 4), (3, 6), (4, 1), (4, 3), (5, 5);
 
 INSERT INTO likes (film_id, user_id)
 VALUES (1, 2), (1, 3), (1, 1);
+
+MERGE INTO rating_mpa (mpa_id, mpa_name) VALUES     ( 1, 'G'),
+                                                    ( 2, 'PG'),
+                                                    ( 3, 'PG-13'),
+                                                    ( 4, 'R'),
+                                                    ( 5, 'NC-17');
+
+MERGE INTO genres (genre_id, genre_name) VALUES  ( 1, 'Комедия'),
+                                        (2, 'Драма'),
+                                        (3, 'Мультфильм'),
+                                        (4, 'Триллер'),
+                                        (5, 'Документальный'),
+                                        (6, 'Боевик');

@@ -16,7 +16,6 @@ import java.util.Set;
 @Data
 public class FilmDto {
 
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Integer id;
 
     @NotBlank(message = "Название фильма не может быть пустым")

@@ -47,7 +47,7 @@ public class FilmDbStorageTest {
         testFilm.setDescription("TestFilm");
         testFilm.setReleaseDate(LocalDate.parse("1919-09-19"));
         testFilm.setDuration(100);
-        RatingMpa mpa = new RatingMpa(1, "");
+        RatingMpa mpa = new RatingMpa(5, "");
         testFilm.setRatingMpa(mpa);
         Genre genreOne = new Genre(1, "");
         Genre genreTwo = new Genre(3, "");
