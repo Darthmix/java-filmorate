@@ -2,6 +2,7 @@ package ru.yandex.practicum.filmorate.mappers.Film;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import org.springframework.stereotype.Component;
 import ru.yandex.practicum.filmorate.dto.Film.FilmDto;
 import ru.yandex.practicum.filmorate.dto.Film.NewFilmRequest;
 import ru.yandex.practicum.filmorate.dto.Film.UpdateFilmRequest;
@@ -11,6 +12,7 @@ import ru.yandex.practicum.filmorate.model.Film;
 
 import java.util.List;
 
+@Component
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class FilmMapper {
 
@@ -20,8 +22,8 @@ public class FilmMapper {
         film.setDescription(request.getDescription());
         film.setReleaseDate(request.getReleaseDate());
         film.setDuration(request.getDuration());
-        film.setRatingMpa(request.getMpa());
-        film.setGenres(request.getGenres());
+        film.setRatingMpa(RatingMpaMapper.fromDto(request.getMpa()));
+        film.setGenres(GenreMapper.fromDto(request.getGenres()));
         return film;
     }
 
@@ -38,7 +40,9 @@ public class FilmMapper {
     }
 
     public static List<FilmDto> toDto(List<Film> films) {
-        return films.stream().map(FilmMapper::toDto).toList();
+        return films.stream()
+                    .map(FilmMapper::toDto)
+                    .toList();
     }
 
     public static Film toEntity(UpdateFilmRequest request) {
@@ -48,8 +52,8 @@ public class FilmMapper {
         film.setDescription(request.getDescription());
         film.setReleaseDate(request.getReleaseDate());
         film.setDuration(request.getDuration());
-        film.setRatingMpa(request.getMpa());
-        film.setGenres(request.getGenres());
+        film.setRatingMpa(RatingMpaMapper.fromDto(request.getMpa()));
+        film.setGenres(GenreMapper.fromDto(request.getGenres()));
         return film;
     }
 }

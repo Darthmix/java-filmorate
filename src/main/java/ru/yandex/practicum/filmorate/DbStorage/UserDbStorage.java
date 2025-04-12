@@ -1,4 +1,4 @@
-package ru.yandex.practicum.filmorate.dal;
+package ru.yandex.practicum.filmorate.DbStorage;
 
 import jakarta.validation.ValidationException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -66,29 +66,39 @@ public class UserDbStorage extends BaseDbStorage<User> implements UserStorage {
         User user = findOne(FIND_USER_BY_ID_QUERY, userId).orElseThrow(() -> new NotFoundException(
                 "Пользователь не найден, id: " + userId));
         List<Integer> friendsId = jdbc.queryForList(FRIENDS_QUERY, Integer.class, user.getId(), user.getId());
-        if (!friendsId.isEmpty()) user.setFriends(Set.copyOf(friendsId));
+        if (!friendsId.isEmpty()) {
+            user.setFriends(Set.copyOf(friendsId));
+        }
         return user;
     }
 
-    public void delete(long userId) {
+    public void delete(Integer userId) {
         update(DELETE_USER_QUERY, userId);
     }
 
     @Override
     public List<User> listOfFriends(Integer id) {
-        return getUserById(id).getFriends().stream().map(this::getUserById).toList();
+        return getUserById(id).getFriends().stream()
+                                           .map(this::getUserById)
+                                           .toList();
     }
 
     @Override
     public List<User> listOfCommonFriends(Integer id, Integer otherId) {
+
         Set<Integer> commonFriends = getUserById(id).getFriends();
         Set<Integer> othersFriends = getUserById(otherId).getFriends();
-        return commonFriends.stream().filter(othersFriends::contains).map(this::getUserById).toList();
+
+        return commonFriends.stream()
+                            .filter(othersFriends::contains)
+                            .map(this::getUserById).toList();
     }
 
     @Override
     public User addFriend(Integer userId, Integer otherId) {
-        if (userId.equals(otherId)) throw new ValidationException("Id друга должен отличаться от id пользователя");
+        if (userId.equals(otherId)) {
+            throw new ValidationException("Id друга должен отличаться от id пользователя");
+        }
         Set<Integer> userFriends = getUserById(userId).getFriends();
         Set<Integer> otherFriends = getUserById(otherId).getFriends();
         if (otherFriends.contains(userId)) {
@@ -106,7 +116,9 @@ public class UserDbStorage extends BaseDbStorage<User> implements UserStorage {
     public User deleteFriend(Integer userId, Integer friendId) {
         Set<Integer> friends = getUserById(userId).getFriends();
         getUserById(friendId);
-        if (friends.contains(friendId)) jdbc.update(DELETE_FRIEND_QUERY, userId, friendId, userId, friendId);
+        if (friends.contains(friendId)) {
+            jdbc.update(DELETE_FRIEND_QUERY, userId, friendId, userId, friendId);
+        }
         return getUserById(userId);
     }
 }

@@ -1,4 +1,4 @@
-package ru.yandex.practicum.filmorate.dal;
+package ru.yandex.practicum.filmorate.DbStorage;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -91,9 +91,7 @@ public class FilmDbStorage extends BaseDbStorage<Film> implements FilmStorage {
     }
 
     public Film getFilmById(Integer id) {
-//        Film film = findOne(FIND_FILM_BY_ID_QUERY, id).orElseThrow(() -> new NotFoundException("Фильм не найден, id: " +
-//                                                                                               id));
-        Film film = new Film();
+        Film film;
         Optional<Film> filmTmp = findOne(FIND_FILM_BY_ID_QUERY, id);
         if (filmTmp.isEmpty()) {
             throw new NotFoundException("Фильм не найден, id: " + id);
@@ -140,23 +138,37 @@ public class FilmDbStorage extends BaseDbStorage<Film> implements FilmStorage {
     private void setGenresForFilm(Film film) {
         Set<Genre> genres = film.getGenres();
         if (genres != null && !genres.isEmpty()) {
-            List<Integer> genresInBase = genreDbStorage.getGenres().stream().map(Genre::getId).toList();
-            if (genres.stream().map(Genre::getId).allMatch(genresInBase::contains)) {
+
+            if (checkGenresInBase(genres)) {
+
                 List<Object[]> batchArgs = new ArrayList<>();
                 jdbc.update(DELETE_FILMS_GENRES_QUERY, film.getId());
-                for (Genre genre : genres) {
-                    batchArgs.add(new Object[]{film.getId(), genre.getId()});
-                }
+                genres.stream()
+                      .map(genre -> new Object[]{film.getId(), genre.getId()})
+                      .forEach(batchArgs::add);
+
                 jdbc.batchUpdate(INSERT_FILMS_GENRES_QUERY, batchArgs);
-            } else throw new NotFoundException("Жанр не найден");
+            } else {
+                throw new NotFoundException("Жанр не найден");
+            }
         }
+    }
+
+    private boolean checkGenresInBase(Set<Genre> genres) {
+
+        List<Integer> genresInBase = genreDbStorage.getGenres().stream()
+                                                   .map(Genre::getId)
+                                                   .toList();
+        return genres.stream()
+                     .map(Genre::getId)
+                     .allMatch(genresInBase::contains);
     }
 
     private List<Film> setGenres(List<Film> films) {
         Map<Integer, Set<Genre>> filmsGenres = getFilmsGenres();
-        for (Film film : films) {
-            if (filmsGenres.get(film.getId()) != null) film.setGenres(filmsGenres.get(film.getId()));
-        }
+        films.stream()
+             .filter(film -> filmsGenres.get(film.getId()) != null)
+             .forEach(film -> film.setGenres(filmsGenres.get(film.getId())));
         return films;
     }
 
