@@ -1,4 +1,4 @@
-package ru.yandex.practicum.filmorate.model;
+package ru.yandex.practicum.filmorate.dto.User;
 
 import jakarta.validation.constraints.*;
 import lombok.Data;
@@ -8,8 +8,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Data
-public class User {
-
+public class UserDto {
     private Integer id;
 
     @NotNull(message = "Email должен быть заполнен")
@@ -24,21 +23,6 @@ public class User {
 
     @Past(message = "Дата рождения не может быть в будущем")
     private LocalDate birthday;
+
     private Set<Integer> friends = new HashSet<>();
-
-    public void setLogin(String login) {
-        this.login = login;
-        if (this.name == null || this.name.isBlank()) {
-            this.name = this.login;
-        }
-    }
-
-    public void setName(String name) {
-        if (name == null || name.isBlank()) {
-            this.name = login;
-        } else {
-            this.name = name;
-        }
-    }
-
 }

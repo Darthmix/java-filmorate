@@ -5,10 +5,11 @@ import jakarta.validation.constraints.Positive;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
-import ru.yandex.practicum.filmorate.model.Film;
+import ru.yandex.practicum.filmorate.dto.Film.FilmDto;
+import ru.yandex.practicum.filmorate.dto.Film.NewFilmRequest;
+import ru.yandex.practicum.filmorate.dto.Film.UpdateFilmRequest;
 import ru.yandex.practicum.filmorate.service.FilmService;
 
-import java.util.Collection;
 import java.util.List;
 
 @Slf4j
@@ -20,22 +21,27 @@ public class FilmController {
     private final FilmService filmService;
 
     @GetMapping
-    public Collection<Film> getAllFilms() {
+    public List<FilmDto> getAllFilms() {
         return filmService.getFilms();
     }
 
+    @GetMapping("/{id}")
+    public FilmDto getFilmById(@PathVariable("id") Integer id) {
+        return filmService.getFilmById(id);
+    }
+
     @PostMapping
-    public Film createFilm(@Valid @RequestBody Film film) {
+    public FilmDto createFilm(@Valid @RequestBody NewFilmRequest film) {
         return filmService.createFilm(film);
     }
 
     @PutMapping
-    public Film updateFilm(@Valid @RequestBody Film newFilm) {
+    public FilmDto updateFilm(@Valid @RequestBody UpdateFilmRequest newFilm) {
         return filmService.updateFilm(newFilm);
     }
 
     @PutMapping("/{id}/like/{userId}")
-    public Film addLike(
+    public FilmDto addLike(
             @Positive(message = "Id фильма должен быть положительным числом") @PathVariable("id") Integer id,
             @Positive(message = "Id пользователя должен быть положительным числом") @PathVariable("userId")
             Integer userId) {
@@ -43,7 +49,7 @@ public class FilmController {
     }
 
     @DeleteMapping("/{id}/like/{userId}")
-    public Film removeLike(
+    public FilmDto removeLike(
             @Positive(message = "Id фильма должен быть положительным числом") @PathVariable("id") Integer id,
             @Positive(message = "Id пользователя должен быть положительным числом") @PathVariable("userId")
             Integer userId) {
@@ -51,7 +57,7 @@ public class FilmController {
     }
 
     @GetMapping("/popular")
-    public List<Film> getPopularFilms(@Positive @RequestParam(name = "count", defaultValue = "10") Integer count) {
+    public List<FilmDto> getPopularFilms(@Positive @RequestParam(name = "count", defaultValue = "10") Integer count) {
         return filmService.getPopularFilms(count);
     }
 }

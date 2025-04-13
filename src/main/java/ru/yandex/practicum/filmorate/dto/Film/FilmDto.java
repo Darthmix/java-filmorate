@@ -1,18 +1,19 @@
-package ru.yandex.practicum.filmorate.model;
+package ru.yandex.practicum.filmorate.dto.Film;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
+import ru.yandex.practicum.filmorate.dto.Genre.GenreDto;
+import ru.yandex.practicum.filmorate.dto.RatingMpa.RatingMpaDto;
 import ru.yandex.practicum.filmorate.validators.ValidReleaseDate;
 
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
-
 @Data
-public class Film {
+public class FilmDto {
 
     private Integer id;
 
@@ -28,7 +29,7 @@ public class Film {
     @Positive(message = "Продолжительность фильма должна быть положительной")
     private int duration;
 
-    private Set<Integer> likes = new HashSet<>();
-    private Set<Genre> genres = new HashSet<>();
-    private RatingMpa ratingMpa;
+    private Set<GenreDto> genres = new HashSet<>();
+
+    private RatingMpaDto mpa;
 }
